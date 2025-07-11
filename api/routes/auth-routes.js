@@ -22,8 +22,8 @@ router.post("/login", authController.login);
 router.post(
   "/add-admin",
   upload.single("user_image"),
-  //protect,
-  //superAdminOnly,
+  protect,
+  superAdminOnly,
   authController.addAdmin
 );
 
