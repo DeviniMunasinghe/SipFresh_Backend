@@ -132,7 +132,7 @@ exports.addAdmin = async (req, res) => {
       return res.status(400).json({ message: "Admin already exists" });
     }
 
-    // Hash password for admin
+    
     const hashedPassword = await bcrypt.hash(password, 8);
 
     // Create admin (role is 'admin')
