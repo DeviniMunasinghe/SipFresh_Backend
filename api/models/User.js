@@ -62,14 +62,19 @@ class User {
       throw new Error("Error creating admin: " + error.message);
     }
   }
-
+  
+  //Get admin by id
   static async findAdminById(user_id) {
+  try {
     const [rows] = await db.execute(
-      `SELECT * FROM user WHERE user_id = ? AND role = 'admin' OR 'super admin'`,
+      `SELECT * FROM user WHERE user_id = ? AND (role = 'admin' OR role = 'super admin') AND is_deleted = 0`,
       [user_id]
     );
     return rows[0];
+  } catch (error) {
+    throw new Error("Error fetching admin by ID: " + error.message);
   }
+}
 
   //Get all admins to the admin profiles page
   static async findAllAdmins() {
