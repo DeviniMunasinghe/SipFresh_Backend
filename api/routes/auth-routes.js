@@ -22,22 +22,28 @@ router.post("/login", authController.login);
 router.post(
   "/add-admin",
   upload.single("user_image"),
-  protect,
-  superAdminOnly,
+  //protect,
+  //superAdminOnly,
   authController.addAdmin
 );
 
 //Get all admins
-router.get("/admins", protect, adminOrSuperAdmin, authController.getAllAdmins);
+router.get("/admins",
+  //protect, 
+  //adminOrSuperAdmin, 
+  authController.getAllAdmins);
 
 //Delete an admin by Id
 router.delete(
   "/admins/:user_id",
-  protect,
-  superAdminOnly,
+  //protect,
+  //superAdminOnly,
   authController.deleteAdmin
 );
 
 // Fetch all registered users (only accessible to admins and super-admins)
-router.get("/users", protect, adminOrSuperAdmin, authController.getAllUsers);
+router.get("/users", 
+  //protect, 
+  //adminOrSuperAdmin, 
+  authController.getAllUsers);
 module.exports = router;
