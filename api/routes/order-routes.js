@@ -36,48 +36,48 @@ router.post("/place", protect, orderController.placeOrder);
 // Route for admins to fetch all orders along with their details
 router.get(
   "/admin/orders",
-  protect,
-  adminOrSuperAdmin,
+  //protect,
+  //adminOrSuperAdmin,
   orderController.getAllOrders
 );
 
 //Get order details by Id
 router.get(
   "/order-details/:orderId",
-  protect,
-  adminOrSuperAdmin,
+  //protect,
+  //adminOrSuperAdmin,
   orderController.getOrderDetails
 );
 
 // Route for admins to update the status of a specific order
 router.put(
   "/admin/order-status/:orderId",
-  protect,
-  adminOrSuperAdmin,
+  //protect,
+  //adminOrSuperAdmin,
   orderController.updateOrderStatus
 );
 
 // Route for admins to delete a specific order by its ID
 router.delete(
   "/admin/delete/:orderId",
-  protect,
-  adminOrSuperAdmin,
+  //protect,
+  //adminOrSuperAdmin,
   orderController.deleteOrder
 );
 
 // Route for admins to fetch order statistics (total, pending, successful, failed orders)
 router.get(
   "/admin/statistics",
-  protect,
-  adminOrSuperAdmin,
+  //protect,
+  //adminOrSuperAdmin,
   orderController.getOrderStatistics
 );
 
 // Route for admins to get the percentage of each order status (Pending, Successful, Failed)
 router.get(
   "/admin/order-status-percentages",
-  protect,
-  adminOrSuperAdmin,
+  //protect,
+  //adminOrSuperAdmin,
   orderController.getOrderStatusPercentages
 );
 
