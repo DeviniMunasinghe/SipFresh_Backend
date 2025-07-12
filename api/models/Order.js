@@ -14,19 +14,19 @@ class Order {
 
   //Get all orders with item names and final prices
   static async getAllOrders() {
-    const [results] = await db.execute(
-      "SELECT ord.order_id, GROUP_CONCAT(itm.item_name SEPARATOR ', ') AS item_names, ord.final_amount AS final_price, ord.order_status FROM `order` ord JOIN order_items orderItem ON ord.order_id = orderItem.order_id JOIN item itm ON orderItem.item_id = itm.item_id GROUP BY ord.order_id"
-    );
-    return results;
-  }
-
-  //Get all orders for a user
-  static async getOrderByUser(userId) {
-    return db.execute(
-      `SELECT * FROM \`order\` WHERE user_id = ? ORDER BY order_date DESC`,
-      [userId]
-    );
-  }
+  const [results] = await db.execute(
+    `SELECT 
+        ord.order_id,
+        GROUP_CONCAT(CONCAT(itm.item_name, ' (', orderItem.quantity, ')') SEPARATOR ', ') AS item_details,
+        ord.final_amount AS final_price,
+        ord.order_status
+     FROM \`order\` ord
+     JOIN order_items orderItem ON ord.order_id = orderItem.order_id
+     JOIN item itm ON orderItem.item_id = itm.item_id
+     GROUP BY ord.order_id`
+  );
+  return results;
+}
 
   //Get a specific order byID
   static async getOrderById(orderId) {
