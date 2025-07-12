@@ -62,19 +62,19 @@ class User {
       throw new Error("Error creating admin: " + error.message);
     }
   }
-  
+
   //Get admin by id
   static async findAdminById(user_id) {
-  try {
-    const [rows] = await db.execute(
-      `SELECT * FROM user WHERE user_id = ? AND (role = 'admin' OR role = 'super admin') AND is_deleted = 0`,
-      [user_id]
-    );
-    return rows[0];
-  } catch (error) {
-    throw new Error("Error fetching admin by ID: " + error.message);
+    try {
+      const [rows] = await db.execute(
+        `SELECT * FROM user WHERE user_id = ? AND (role = 'admin' OR role = 'super admin') AND is_deleted = 0`,
+        [user_id]
+      );
+      return rows[0];
+    } catch (error) {
+      throw new Error("Error fetching admin by ID: " + error.message);
+    }
   }
-}
 
   //Get all admins to the admin profiles page
   static async findAllAdmins() {
@@ -98,6 +98,45 @@ class User {
       ]);
     } catch (error) {
       throw new Error("Error deleting the admin:" + error.message);
+    }
+  }
+
+  //update admin details
+  static async updateAdminById(user_id, updateData) {
+    const {
+      first_name,
+      last_name,
+      username,
+      email,
+      phone_no,
+      address,
+      user_image,
+    } = updateData;
+
+    try {
+      await db.execute(
+        `UPDATE user SET
+        first_name = ?,
+        last_name = ?,
+        username = ?,
+        email = ?,
+        phone_no = ?,
+        address = ?,
+        user_image = ?
+      WHERE user_id = ? AND (role = 'admin' OR role = 'super admin') AND is_deleted = 0`,
+        [
+          first_name || null,
+          last_name || null,
+          username || null,
+          email || null,
+          phone_no || null,
+          address || null,
+          user_image || null,
+          user_id,
+        ]
+      );
+    } catch (error) {
+      throw new Error("Error updating admin: " + error.message);
     }
   }
 

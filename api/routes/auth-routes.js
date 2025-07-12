@@ -36,10 +36,12 @@ router.get(
 );
 
 //Get all admins
-router.get("/admins",
-  //protect, 
-  //adminOrSuperAdmin, 
-  authController.getAllAdmins);
+router.get(
+  "/admins",
+  //protect,
+  //adminOrSuperAdmin,
+  authController.getAllAdmins
+);
 
 //Delete an admin by Id
 router.delete(
@@ -49,9 +51,20 @@ router.delete(
   authController.deleteAdmin
 );
 
+// Update an admin
+router.put(
+  "/admins/:user_id",
+  upload.single("user_image"),
+  //protect,
+  //adminOrSuperAdmin,
+  authController.updateAdmin
+);
+
 // Fetch all registered users (only accessible to admins and super-admins)
-router.get("/users", 
-  //protect, 
-  //adminOrSuperAdmin, 
-  authController.getAllUsers);
+router.get(
+  "/users",
+  //protect,
+  //adminOrSuperAdmin,
+  authController.getAllUsers
+);
 module.exports = router;

@@ -216,6 +216,44 @@ exports.deleteAdmin = async (req, res) => {
   }
 };
 
+exports.updateAdmin = async (req, res) => {
+  const { user_id } = req.params;
+  const {
+    first_name,
+    last_name,
+    username,
+    email,
+    phone_no,
+    address,
+  } = req.body;
+
+  const user_image = req.file ? req.file.path : null;
+
+  try {
+    const existingAdmin = await User.findAdminById(user_id);
+    if (!existingAdmin) {
+      return res.status(404).json({ message: "Admin not found" });
+    }
+
+    const updateData = {
+      first_name,
+      last_name,
+      username,
+      email,
+      phone_no,
+      address,
+      user_image,
+    };
+
+    await User.updateAdminById(user_id, updateData);
+
+    res.status(200).json({ message: "Admin updated successfully" });
+  } catch (error) {
+    console.error("Update admin error:", error);
+    res.status(500).json({ message: "Server error", error: error.message });
+  }
+};
+
 // Fetch all registered users
 exports.getAllUsers = async (req, res) => {
   try {
