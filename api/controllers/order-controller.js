@@ -657,9 +657,9 @@ exports.getOrderStatusPercentages = async (req, res) => {
     const failedPercentage = ((failedOrders / totalOrders) * 100).toFixed(2);
 
     res.json({
-      pending: pendingPercentage,
-      successful: successfulPercentage,
-      failed: failedPercentage,
+      pending: pendingPercentage+'%',
+      successful: successfulPercentage+'%',
+      failed: failedPercentage+'%',
     });
   } catch (error) {
     console.error("Error calculating order status percentages:", error);
