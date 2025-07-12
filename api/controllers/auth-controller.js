@@ -157,6 +157,31 @@ exports.addAdmin = async (req, res) => {
   }
 };
 
+// Fetch single admin by ID
+exports.getAdminById = async (req, res) => {
+  const { user_id } = req.params;
+
+  try {
+    const admin = await User.findAdminById(user_id);
+
+    if (!admin) {
+      return res.status(404).json({ message: "Admin not found" });
+    }
+
+    res.status(200).json({
+      status: "success",
+      data: admin,
+    });
+  } catch (error) {
+    console.error("Error fetching admin by ID:", error);
+    res.status(500).json({
+      message: "Server error",
+      error: error.message,
+    });
+  }
+};
+
+
 //Fetch all admins
 exports.getAllAdmins = async (req, res) => {
   try {

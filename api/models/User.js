@@ -63,6 +63,14 @@ class User {
     }
   }
 
+  static async findAdminById(user_id) {
+    const [rows] = await db.execute(
+      `SELECT * FROM user WHERE user_id = ? AND role = 'admin' OR 'super admin'`,
+      [user_id]
+    );
+    return rows[0];
+  }
+
   //Get all admins to the admin profiles page
   static async findAllAdmins() {
     try {

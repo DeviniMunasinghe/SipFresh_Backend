@@ -27,6 +27,14 @@ router.post(
   authController.addAdmin
 );
 
+// Get single admin by ID
+router.get(
+  "/admins/:user_id",
+  //protect,
+  //adminOrSuperAdmin,
+  authController.getAdminById
+);
+
 //Get all admins
 router.get("/admins",
   //protect, 
